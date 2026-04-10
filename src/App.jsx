@@ -1,120 +1,83 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
 import './App.css'
+import OpdModule from './OpdModule'
+import opRequisitionImage from './assets/op_requisition.png'
+import interestManagerImage from './assets/interest_manager.png'
+import chitsImage from './assets/chits.png'
+import recurringDepositImage from './assets/recurring_deposit.png'
+
+const modules = [
+  {
+    id: 'op-requisition',
+    title: 'Op Requisition',
+    description: 'Streamline approvals, track requests, and keep operations moving without paperwork bottlenecks.',
+    image: opRequisitionImage,
+    accent: 'cyan',
+  },
+  {
+    id: 'interest-manager',
+    title: 'Interest Manager',
+    description: 'Monitor returns, configure plans, and give every customer a transparent growth snapshot.',
+    image: interestManagerImage,
+    accent: 'emerald',
+  },
+  {
+    id: 'chits',
+    title: 'Chits',
+    description: 'Organize groups, payment cycles, and member activity in one coordinated workflow.',
+    image: chitsImage,
+    accent: 'violet',
+  },
+  {
+    id: 'recurring-deposit',
+    title: 'Recurring Deposit',
+    description: 'Highlight disciplined saving with deposit insights, reminders, and maturity planning.',
+    image: recurringDepositImage,
+    accent: 'amber',
+  },
+]
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [activeModule, setActiveModule] = useState(null)
+
+  if (activeModule === 'op-requisition') {
+    return <OpdModule onBack={() => setActiveModule(null)} />
+  }
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
+    <main className="home-page">
+      <section className="hero">
+        <p className="hero__eyebrow">Smart finance dashboard</p>
+        <h1 className="hero__title">MyBusiness</h1>
+        <p className="hero__description">
+          Built for modern business operations with sharper visuals, faster navigation, and a
+          premium feel across every core module.
+        </p>
       </section>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
+      <section className="module-grid" aria-label="Business modules">
+        {modules.map((module) => (
+          <button
+            key={module.id}
+            type="button"
+            className={`module-card module-card--${module.accent}`}
+            onClick={() => module.id === 'op-requisition' && setActiveModule(module.id)}
+          >
+            <img
+              className="module-card__image"
+              src={module.image}
+              alt={module.title}
+            />
+            <div className="module-card__overlay" />
+            <div className="module-card__content">
+              <span className="module-card__label">Module</span>
+              <h2>{module.title}</h2>
+              <p>{module.description}</p>
+            </div>
+          </button>
+        ))}
       </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+    </main>
   )
 }
 
