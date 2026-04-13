@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import './App.css'
-import OpdModule from './OpdModule'
-import opRequisitionImage from './assets/op_requisition.png'
-import interestManagerImage from './assets/interest_manager.png'
-import chitsImage from './assets/chits.png'
-import recurringDepositImage from './assets/recurring_deposit.png'
+import './core/styles/App.css'
+import OpdModule from './modules/OPD/OpdModule'
+import InterestManagerModule from './modules/InterestManager/InterestManagerModule'
+import opRequisitionImage from './core/assets/op_requisition.png'
+import interestManagerImage from './core/assets/interest_manager.png'
+import chitsImage from './core/assets/chits.png'
+import recurringDepositImage from './core/assets/recurring_deposit.png'
 
 const modules = [
   {
@@ -44,6 +45,10 @@ function App() {
     return <OpdModule onBack={() => setActiveModule(null)} />
   }
 
+  if (activeModule === 'interest-manager') {
+    return <InterestManagerModule onBack={() => setActiveModule(null)} />
+  }
+
   return (
     <main className="home-page">
       <section className="hero">
@@ -61,7 +66,11 @@ function App() {
             key={module.id}
             type="button"
             className={`module-card module-card--${module.accent}`}
-            onClick={() => module.id === 'op-requisition' && setActiveModule(module.id)}
+            onClick={() => {
+              if (module.id === 'op-requisition' || module.id === 'interest-manager') {
+                setActiveModule(module.id)
+              }
+            }}
           >
             <img
               className="module-card__image"

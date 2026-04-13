@@ -11,7 +11,7 @@ import {
   patientFlow,
   symptomBreakdown,
   visits,
-} from './opdData'
+} from './data/opdData'
 
 function moveItem(items, index, direction) {
   const nextIndex = direction === 'up' ? index - 1 : index + 1
