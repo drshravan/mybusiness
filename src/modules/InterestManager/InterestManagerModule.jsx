@@ -54,8 +54,8 @@ const NavigationSidebar = ({ onBack, isMobileMenuOpen, setIsMobileMenuOpen }) =>
           onClick={() => setIsMobileMenuOpen(false)}
         />
       )}
-      <aside className={`im-sidebar glass-card flex flex-col z-50 fixed md:sticky top-0 h-screen w-72 transition-transform duration-300 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
-        <div className="p-6 border-b border-white/10 flex items-center justify-between">
+      <aside className={`im-sidebar glass-card transition-transform duration-300 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`} style={{ width: '280px', flexShrink: 0, display: 'flex', flexDirection: 'column', height: '100vh', position: 'sticky', top: 0 }}>
+        <div className="p-6 border-b border-white/10" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '24px', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
           <h1 className="im-title text-xl text-white font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
             Interest Manager
           </h1>
@@ -67,8 +67,8 @@ const NavigationSidebar = ({ onBack, isMobileMenuOpen, setIsMobileMenuOpen }) =>
           </button>
         </div>
         
-        <div className="flex-1 overflow-y-auto px-4 py-6 scrollbar-hide">
-          <nav className="flex flex-col gap-2">
+        <div className="flex-1 scrollbar-hide" style={{ flex: 1, overflowY: 'auto', padding: '24px 16px' }}>
+          <nav className="flex flex-col gap-2" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             {menuItems.map((item) => {
               const isActive = location.pathname === item.path || (item.path !== '/' && location.pathname.startsWith(item.path));
               return (
@@ -161,15 +161,15 @@ const AppLayout = ({ onBack }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <div className="im-suite flex min-h-screen">
+    <div className="im-suite" style={{ display: 'flex', minHeight: '100vh', width: '100%' }}>
       <NavigationSidebar 
         onBack={onBack} 
         isMobileMenuOpen={isMobileMenuOpen} 
         setIsMobileMenuOpen={setIsMobileMenuOpen} 
       />
       
-      <main className="flex-1 flex flex-col min-w-0 h-screen overflow-y-auto w-full">
-        <div className="p-4 md:p-8 max-w-[1600px] w-full mx-auto">
+      <main style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, height: '100vh', overflowY: 'auto', width: '100%' }}>
+        <div style={{ padding: '32px', maxWidth: '1600px', width: '100%', margin: '0 auto' }}>
           <Header setIsMobileMenuOpen={setIsMobileMenuOpen} />
           
           <Routes>
